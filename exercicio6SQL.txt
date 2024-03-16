@@ -1,0 +1,14 @@
+SELECT * FROM alunos;
+	
+    SELECT alunos.aluno_id, alunos.data_matricula, alunos.nome, alunos.endereco, alunos.telefone, alunos.data_nascimento, alunos.altura, alunos.peso, turmas.turma_id
+    FROM matriculas
+    INNER JOIN alunos ON matriculas.aluno_id = alunos.aluno_id
+    INNER JOIN turmas ON matriculas.turma_id = turmas.turma_id;
+
+    SELECT alunos.nome
+    FROM matriculas
+	INNER JOIN alunos ON matriculas.aluno_id = alunos.aluno_id
+    WHERE numero_faltas = 0;
+    
+    SELECT professores.nome
+    
