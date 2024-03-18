@@ -1,4 +1,4 @@
-SELECT * FROM alunos;
+    SELECT * FROM alunos;
 	
     SELECT alunos.aluno_id, alunos.data_matricula, alunos.nome, alunos.endereco, alunos.telefone, alunos.data_nascimento, alunos.altura, alunos.peso, turmas.turma_id
     FROM matriculas
@@ -10,5 +10,19 @@ SELECT * FROM alunos;
 	INNER JOIN alunos ON matriculas.aluno_id = alunos.aluno_id
     WHERE numero_faltas = 0;
     
-    SELECT professores.nome
+    SELECT professores.nome, COUNT(turmas.turma_id)
+    FROM professores
+    INNER JOIN turmas ON professores.cpf = turmas.cpf_professor
+    GROUP BY professores.nome;
+    
+    SELECT professores.nome, telefones.telefone1, turmas.turma_id,
+    turmas.data_inicial, turmas.data_final, turmas.horario_aula,
+    tipos_cursos.nome_curso, alunos.nome
+    FROM professores
+    INNER JOIN turmas ON professores.cpf = turmas.cpf_professor
+    INNER JOIN tipos_cursos ON turmas.tipo_curso = tipos_cursos.curso_id
+    INNER JOIN telefones ON professores.cpf = telefones.cpf
+    INNER JOIN alunos ON turmas.monitor_id = alunos.aluno_id
+    ORDER BY professores.nome, turmas.turma_id, alunos.nome;
+    
     
