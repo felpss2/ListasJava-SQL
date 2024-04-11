@@ -1,0 +1,78 @@
+CREATE database exercicio1;
+
+
+CREATE TABLE vendedor(
+nrvendedor INT PRIMARY KEY NOT NULL,
+nomevendedor VARCHAR(50),
+idade INT,
+salario DECIMAL(10,2)
+
+
+);
+
+CREATE TABLE pedido(
+nr_pedido INT PRIMARY KEY NOT NULL,
+nrvendedor INT NOT NULL,
+nrcliente INT NOT NULL,
+quantidadeitens VARCHAR(2),
+valor_total DECIMAL(10,2) NOT NULL,
+FOREIGN KEY (nrvendedor) REFERENCES vendedor(nrvendedor),
+FOREIGN KEY (nrcliente) REFERENCES clientes(nrcliente)
+
+);
+
+CREATE TABLE clientes( 
+nrcliente INT NOT NULL PRIMARY KEY,
+nomecliente VARCHAR(30),
+cidade VARCHAR(30),
+tipo varchar(30)
+
+);
+
+INSERT INTO vendedor (nrvendedor, nomevendedor, idade, salario) VALUES
+(4, 'Ana Costa', 30, 2800.00),
+(5, 'Pedro Oliveira', 38, 3200.00),
+(6, 'Mariana Santos', 25, 2500.00),
+(7, 'Fernando Silva', 42, 3500.00),
+(8, 'Camila Souza', 33, 2900.00);
+(9, 'Laura Lima', 28, 2700.00),
+(10, 'Rafaela Rodrigues', 31, 3000.00);
+
+
+INSERT INTO clientes (nrcliente, nomecliente, cidade, tipo) VALUES
+(9, 'SKA', 'Manaus', 'industria'),
+(10, 'eduardo', 'Goiânia', 'Físico'),
+(11, 'SPA', 'Recife', 'Jurídico'),
+(12, 'esdras', 'Florianópolis', 'Físico'),
+(13, 'CWI', 'Natal', 'industria');
+
+
+
+
+INSERT INTO pedido (nr_pedido, nrvendedor, nrcliente, quantidadeitens, valor_total)
+VALUES (4, 4, 9, '15', 1200.00),
+       (5, 5, 10, '20', 1800.00),
+       (6, 6, 11, '12', 900.00),
+       (7, 7, 12, '8', 600.00),
+       (8, 8, 13, '10', 800.00);
+
+
+    SELECT nomevendedor FROM vendedor;
+    
+    SELECT nrvendedor FROM pedido;
+    
+	SELECT * FROM vendedor 
+    LEFT JOIN pedido ON vendedor.nrvendedor = pedido.nrvendedor
+    WHERE nr_pedido IS NULL;
+    
+    SELECT * FROM clientes INNER JOIN pedido ON clientes.nrcliente = pedido.nrcliente
+    INNER JOIN vendedor ON pedido.nrvendedor = vendedor.nrvendedor
+    WHERE clientes.tipo = 'Industria';
+    
+    SELECT * FROM clientes INNER JOIN pedido ON clientes.nrcliente = pedido.nrcliente
+    INNER JOIN vendedor ON pedido.nrvendedor = vendedor.nrvendedor
+    WHERE vendedor.nomevendedor = "João";
+
+    SELECT * FROM clientes INNER JOIN pedido 
+    ON clientes.nrcliente = pedido.nrcliente
+    WHERE valor_total > 5000;
