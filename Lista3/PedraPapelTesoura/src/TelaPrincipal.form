@@ -26,15 +26,16 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="123" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace min="135" pref="135" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="JbTesoura" min="-2" max="-2" attributes="0"/>
-                  <Component id="JbPapel" min="-2" max="-2" attributes="0"/>
-                  <Component id="JbPedra" min="-2" max="-2" attributes="0"/>
+                  <Component id="JrTesoura" min="-2" max="-2" attributes="0"/>
+                  <Component id="JrPapel" min="-2" max="-2" attributes="0"/>
+                  <Component id="JbJogar" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <Component id="JrPedra" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="146" max="32767" attributes="0"/>
+              <EmptySpace pref="134" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -44,12 +45,14 @@
               <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="JbPedra" min="-2" max="-2" attributes="0"/>
+              <Component id="JrPedra" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="JbPapel" min="-2" max="-2" attributes="0"/>
+              <Component id="JrPapel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="JbTesoura" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="139" max="32767" attributes="0"/>
+              <Component id="JrTesoura" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="JbJogar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="98" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -60,23 +63,31 @@
         <Property name="text" type="java.lang.String" value="Pedra, Papel ou Tesoura?"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="JbPedra">
+    <Component class="javax.swing.JRadioButton" name="JrPedra">
       <Properties>
         <Property name="text" type="java.lang.String" value="Pedra"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JbPedraActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JrPedraActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="JbPapel">
+    <Component class="javax.swing.JRadioButton" name="JrPapel">
       <Properties>
         <Property name="text" type="java.lang.String" value="Papel"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="JbTesoura">
+    <Component class="javax.swing.JRadioButton" name="JrTesoura">
       <Properties>
         <Property name="text" type="java.lang.String" value="Tesoura"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="JbJogar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Jogar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JbJogarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
