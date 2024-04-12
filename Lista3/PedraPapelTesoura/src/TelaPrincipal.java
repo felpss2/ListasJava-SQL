@@ -19,6 +19,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         initComponents();
 
     }
+    public void Limpar(){
+    JrPedra.setSelected(false);
+    JrTesoura.setSelected(false);
+    JrPapel.setSelected(false);
+}
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -43,8 +48,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
 
         JrPapel.setText("Papel");
+        JrPapel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JrPapelActionPerformed(evt);
+            }
+        });
 
         JrTesoura.setText("Tesoura");
+        JrTesoura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JrTesouraActionPerformed(evt);
+            }
+        });
 
         JbJogar.setText("Jogar");
         JbJogar.addActionListener(new java.awt.event.ActionListener() {
@@ -87,7 +102,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JrPedraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JrPedraActionPerformed
-
+ JrTesoura.setSelected(false);
+ JrPapel.setSelected(false);
     }//GEN-LAST:event_JrPedraActionPerformed
 
     private void JbJogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbJogarActionPerformed
@@ -104,16 +120,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 JrPedra.doClick();
                 JOptionPane.showMessageDialog(null, "Empate");
                 JrPedra.setSelected(false);
+                
 
             } else if (numeroAleatorio == 1) {
                 JrPapel.doClick();
                 JOptionPane.showMessageDialog(null, "Perdeu");
                 JrPapel.setSelected(false);
+                
 
             } else if (numeroAleatorio == 2) {
                 JrTesoura.doClick();
                 JOptionPane.showMessageDialog(null, "Venceu");
                 JrTesoura.setSelected(false);
+                
             }
 
         } else if (papel) {
@@ -123,16 +142,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 JrPedra.doClick();
                 JOptionPane.showMessageDialog(null, "Venceu");
                 JrPedra.setSelected(false);
+                
 
             } else if (numeroAleatorio == 1) {
                 JrPapel.doClick();
                 JOptionPane.showMessageDialog(null, "Empate");
                 JrPapel.setSelected(false);
+                
 
             } else if (numeroAleatorio == 2) {
                 JrTesoura.doClick();
                 JOptionPane.showMessageDialog(null, "Perdeu");
                 JrTesoura.setSelected(false);
+               
             }
 
         } else if (tesoura) {
@@ -142,22 +164,36 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 JrPedra.doClick();
                 JOptionPane.showMessageDialog(null, "Perdeu");
                 JrPedra.setSelected(false);
+                
 
             } else if (numeroAleatorio == 1) {
                 JrPapel.doClick();
                 JOptionPane.showMessageDialog(null, "Venceu");
                 JrPapel.setSelected(false);
+                
 
             } else if (numeroAleatorio == 2) {
                 JrTesoura.doClick();
                 JOptionPane.showMessageDialog(null, "Empatou");
                 JrTesoura.setSelected(false);
+                
             }
         } else {
             JOptionPane.showMessageDialog(null, "Selecione alguma opção");
+           
         }
     
     }//GEN-LAST:event_JbJogarActionPerformed
+
+    private void JrPapelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JrPapelActionPerformed
+     JrPedra.setSelected(false);
+     JrTesoura.setSelected(false);
+    }//GEN-LAST:event_JrPapelActionPerformed
+
+    private void JrTesouraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JrTesouraActionPerformed
+     JrPedra.setSelected(false);
+     JrPapel.setSelected(false);
+    }//GEN-LAST:event_JrTesouraActionPerformed
 
     /**
          * @param args the command line arguments
