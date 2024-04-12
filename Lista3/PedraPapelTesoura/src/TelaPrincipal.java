@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
  *
  * @author 05136425016
  */
+
 public class TelaPrincipal extends javax.swing.JFrame {
 
     /**
@@ -103,102 +104,101 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 JrPedra.doClick();
                 JOptionPane.showMessageDialog(null, "Empate");
                 JrPedra.setSelected(false);
-                
+
             } else if (numeroAleatorio == 1) {
                 JrPapel.doClick();
                 JOptionPane.showMessageDialog(null, "Perdeu");
                 JrPapel.setSelected(false);
-                
+
             } else if (numeroAleatorio == 2) {
                 JrTesoura.doClick();
                 JOptionPane.showMessageDialog(null, "Venceu");
                 JrTesoura.setSelected(false);
             }
-        }
 
-        if (papel) {
+        } else if (papel) {
             JrPapel.setSelected(false);
             numeroAleatorio = radInt(0, 2);
             if (numeroAleatorio == 0) {
                 JrPedra.doClick();
                 JOptionPane.showMessageDialog(null, "Venceu");
                 JrPedra.setSelected(false);
-                
+
             } else if (numeroAleatorio == 1) {
                 JrPapel.doClick();
                 JOptionPane.showMessageDialog(null, "Empate");
                 JrPapel.setSelected(false);
-                
+
             } else if (numeroAleatorio == 2) {
                 JrTesoura.doClick();
                 JOptionPane.showMessageDialog(null, "Perdeu");
                 JrTesoura.setSelected(false);
             }
-        }
 
-        if (tesoura) {
+        } else if (tesoura) {
             JrTesoura.setSelected(false);
             numeroAleatorio = radInt(0, 2);
             if (numeroAleatorio == 0) {
                 JrPedra.doClick();
                 JOptionPane.showMessageDialog(null, "Perdeu");
                 JrPedra.setSelected(false);
-                
+
             } else if (numeroAleatorio == 1) {
                 JrPapel.doClick();
                 JOptionPane.showMessageDialog(null, "Venceu");
                 JrPapel.setSelected(false);
-                
+
             } else if (numeroAleatorio == 2) {
                 JrTesoura.doClick();
                 JOptionPane.showMessageDialog(null, "Empatou");
                 JrTesoura.setSelected(false);
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione alguma opção");
         }
-
-
+    
     }//GEN-LAST:event_JbJogarActionPerformed
 
     /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * @param args the command line arguments
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+    public static void main(String args[]) {
+    /* Set the Nimbus look and feel */
+    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+     */
+    try {
+        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            if ("Nimbus".equals(info.getName())) {
+                javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                break;
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaPrincipal().setVisible(true);
-            }
-        });
+    } catch (ClassNotFoundException ex) {
+        java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
+    //</editor-fold>
+
+    /* Create and display the form */
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            new TelaPrincipal().setVisible(true);
+        }
+    });
+}
 
     public static int radInt(int min, int max) {
-        java.util.Random rand = new java.util.Random();
-        int randomNum = rand.nextInt((max - min) + 1) + min;
-        return randomNum;
-    }
+    java.util.Random rand = new java.util.Random();
+    int randomNum = rand.nextInt((max - min) + 1) + min;
+    return randomNum;
+}
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
