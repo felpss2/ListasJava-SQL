@@ -1,12 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author 05136425016
- */
 public class TelaPrincipal extends javax.swing.JFrame {
 
     /**
@@ -86,7 +80,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JbMostrarIntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbMostrarIntActionPerformed
-        
+    int inteiro = (int) Double.parseDouble(txtInteiro.getText());
+    ArrayList<String> lista = new ArrayList<>();
+    
+    for (int i = 1; i <= inteiro; i++){
+         
+        if (inteiro %i== 0){
+          lista.add(Integer.toString(i));
+          
+        }
+            
+    }
+    
+    JOptionPane.showMessageDialog(null, "os numeros divisiveis são: "+lista);
+    
     }//GEN-LAST:event_JbMostrarIntActionPerformed
 
     /**
