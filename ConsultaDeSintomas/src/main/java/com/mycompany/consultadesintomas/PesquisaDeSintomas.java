@@ -8,12 +8,12 @@ package com.mycompany.consultadesintomas;
  *
  * @author 05136425016
  */
-public class PesquisaDeDoenca extends javax.swing.JFrame {
+public class PesquisaDeSintomas extends javax.swing.JFrame {
 
     /**
      * Creates new form PesquisaDeDoenca
      */
-    public PesquisaDeDoenca() {
+    public PesquisaDeSintomas() {
         initComponents();
     }
 
@@ -37,14 +37,14 @@ public class PesquisaDeDoenca extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Pesquisa De Doença");
+        jLabel1.setText("Pesquisa De Sintomas");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Doença"
+                "Código", "Sintoma"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -126,20 +126,21 @@ public class PesquisaDeDoenca extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PesquisaDeDoenca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PesquisaDeSintomas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PesquisaDeDoenca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PesquisaDeSintomas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PesquisaDeDoenca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PesquisaDeSintomas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PesquisaDeDoenca.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PesquisaDeSintomas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PesquisaDeDoenca().setVisible(true);
+                new PesquisaDeSintomas().setVisible(true);
             }
         });
     }

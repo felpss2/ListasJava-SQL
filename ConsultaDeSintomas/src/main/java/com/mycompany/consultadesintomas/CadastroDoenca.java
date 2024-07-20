@@ -31,6 +31,7 @@ public class CadastroDoenca extends javax.swing.JFrame {
         txtDoenca = new javax.swing.JTextField();
         JlbNome = new javax.swing.JLabel();
         BtnCadastrar = new javax.swing.JButton();
+        BtnCadastrar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -38,7 +39,9 @@ public class CadastroDoenca extends javax.swing.JFrame {
 
         JlbNome.setText("Digite o nome da doença");
 
-        BtnCadastrar.setText("Cadastrar");
+        BtnCadastrar.setText("Cancelar");
+
+        BtnCadastrar1.setText("Cadastrar");
 
         javax.swing.GroupLayout JpnCadastroDeDoencaLayout = new javax.swing.GroupLayout(JpnCadastroDeDoenca);
         JpnCadastroDeDoenca.setLayout(JpnCadastroDeDoencaLayout);
@@ -47,30 +50,34 @@ public class CadastroDoenca extends javax.swing.JFrame {
             .addGroup(JpnCadastroDeDoencaLayout.createSequentialGroup()
                 .addGroup(JpnCadastroDeDoencaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(JpnCadastroDeDoencaLayout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(JlbNome)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDoenca, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(JpnCadastroDeDoencaLayout.createSequentialGroup()
                         .addGap(139, 139, 139)
                         .addComponent(JlbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(JpnCadastroDeDoencaLayout.createSequentialGroup()
-                        .addGap(157, 157, 157)
-                        .addComponent(BtnCadastrar)))
-                .addContainerGap(52, Short.MAX_VALUE))
+                        .addGap(89, 89, 89)
+                        .addGroup(JpnCadastroDeDoencaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(JlbNome)
+                            .addGroup(JpnCadastroDeDoencaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(JpnCadastroDeDoencaLayout.createSequentialGroup()
+                                    .addComponent(BtnCadastrar1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(BtnCadastrar))
+                                .addComponent(txtDoenca, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
         JpnCadastroDeDoencaLayout.setVerticalGroup(
             JpnCadastroDeDoencaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JpnCadastroDeDoencaLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(JlbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addGap(18, 18, 18)
+                .addComponent(JlbNome)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtDoenca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
                 .addGroup(JpnCadastroDeDoencaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDoenca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JlbNome))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
-                .addComponent(BtnCadastrar)
-                .addGap(73, 73, 73))
+                    .addComponent(BtnCadastrar1)
+                    .addComponent(BtnCadastrar))
+                .addGap(70, 70, 70))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -124,6 +131,7 @@ public class CadastroDoenca extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnCadastrar;
+    private javax.swing.JButton BtnCadastrar1;
     private javax.swing.JLabel JlbNome;
     private javax.swing.JLabel JlbTitulo;
     private javax.swing.JPanel JpnCadastroDeDoenca;
