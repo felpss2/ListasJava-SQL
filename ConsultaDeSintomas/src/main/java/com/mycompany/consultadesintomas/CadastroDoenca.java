@@ -4,6 +4,12 @@
  */
 package com.mycompany.consultadesintomas;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author 05136425016
@@ -30,7 +36,7 @@ public class CadastroDoenca extends javax.swing.JFrame {
         JlbTitulo = new javax.swing.JLabel();
         txtDoenca = new javax.swing.JTextField();
         JlbNome = new javax.swing.JLabel();
-        BtnCadastrar = new javax.swing.JButton();
+        BtnCancelar = new javax.swing.JButton();
         BtnCadastrar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -39,9 +45,19 @@ public class CadastroDoenca extends javax.swing.JFrame {
 
         JlbNome.setText("Digite o nome da doença");
 
-        BtnCadastrar.setText("Cancelar");
+        BtnCancelar.setText("Cancelar");
+        BtnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCancelarActionPerformed(evt);
+            }
+        });
 
         BtnCadastrar1.setText("Cadastrar");
+        BtnCadastrar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCadastrar1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout JpnCadastroDeDoencaLayout = new javax.swing.GroupLayout(JpnCadastroDeDoenca);
         JpnCadastroDeDoenca.setLayout(JpnCadastroDeDoencaLayout);
@@ -60,7 +76,7 @@ public class CadastroDoenca extends javax.swing.JFrame {
                                 .addGroup(JpnCadastroDeDoencaLayout.createSequentialGroup()
                                     .addComponent(BtnCadastrar1)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(BtnCadastrar))
+                                    .addComponent(BtnCancelar))
                                 .addComponent(txtDoenca, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(101, Short.MAX_VALUE))
         );
@@ -73,11 +89,11 @@ public class CadastroDoenca extends javax.swing.JFrame {
                 .addComponent(JlbNome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtDoenca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addGroup(JpnCadastroDeDoencaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnCadastrar1)
-                    .addComponent(BtnCadastrar))
-                .addGap(70, 70, 70))
+                    .addComponent(BtnCancelar))
+                .addGap(112, 112, 112))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -94,6 +110,54 @@ public class CadastroDoenca extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    private void BtnCadastrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCadastrar1ActionPerformed
+ 
+        String descricaoDoenca = txtDoenca.getText();
+        cadastrarDoenca(descricaoDoenca);
+        
+    }//GEN-LAST:event_BtnCadastrar1ActionPerformed
+
+    private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
+         dispose();
+    }//GEN-LAST:event_BtnCancelarActionPerformed
+
+    
+    
+    private Connection conectarBanco() throws SQLException {
+        String url = "jdbc:mysql://localhost:3306/consultaSintomas";
+        String usuario = "root";
+        String senha = "root";
+        return DriverManager.getConnection(url, usuario, senha);
+    }
+    
+    
+ private void cadastrarDoenca(String descricaoDoenca) {
+        try {
+            Connection conexao = conectarBanco();
+
+            // Inserir a doença na tabela DOENCAS
+            String insertDoencaSQL = "INSERT INTO DOENCAS (DOENCA_DESCRICAO) VALUES (?)";
+            PreparedStatement pstmtDoenca = conexao.prepareStatement(insertDoencaSQL);
+
+            pstmtDoenca.setString(1, descricaoDoenca);
+
+            int rowsAffected = pstmtDoenca.executeUpdate();
+
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(null, "Doença cadastrada com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Nenhuma doença foi cadastrada.");
+            }
+
+            pstmtDoenca.close();
+            conexao.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar doença: " + e.getMessage());
+        }
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -130,8 +194,8 @@ public class CadastroDoenca extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnCadastrar;
     private javax.swing.JButton BtnCadastrar1;
+    private javax.swing.JButton BtnCancelar;
     private javax.swing.JLabel JlbNome;
     private javax.swing.JLabel JlbTitulo;
     private javax.swing.JPanel JpnCadastroDeDoenca;

@@ -4,6 +4,18 @@
  */
 package com.mycompany.consultadesintomas;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author 05136425016
@@ -15,6 +27,7 @@ public class PesquisaDeDoenca extends javax.swing.JFrame {
      */
     public PesquisaDeDoenca() {
         initComponents();
+       
     }
 
     /**
@@ -28,18 +41,26 @@ public class PesquisaDeDoenca extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtPesquisaNome = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        TblDoencas = new javax.swing.JTable();
+        btnAlterar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        btnPesquisar = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setText("Pesquisa De Doença");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TblDoencas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -47,51 +68,92 @@ public class PesquisaDeDoenca extends javax.swing.JFrame {
                 "Código", "Doença"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(TblDoencas);
 
-        jButton1.setText("Alterar");
+        btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Excluir");
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Cancelar");
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Digite a doença para exclusão");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(113, Short.MAX_VALUE)
+                .addComponent(btnAlterar)
+                .addGap(49, 49, 49)
+                .addComponent(btnCancelar)
+                .addGap(90, 90, 90))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(137, 137, 137)
+                        .addGap(136, 136, 136)
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(65, 65, 65)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextField1)
+                                    .addComponent(txtPesquisaNome, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnPesquisar)
+                                    .addComponent(btnExcluir))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jButton1)
-                .addGap(53, 53, 53)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addGap(47, 47, 47))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(40, 40, 40)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(txtPesquisaNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPesquisar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExcluir))
+                .addGap(39, 39, 39)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAlterar)
+                    .addComponent(btnCancelar))
                 .addGap(31, 31, 31))
         );
 
@@ -109,6 +171,157 @@ public class PesquisaDeDoenca extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+       
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        try {
+            exibirDoencas();
+        } catch (SQLException ex) {
+            Logger.getLogger(PesquisaDeDoenca.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+                  String nomePesquisa = txtPesquisaNome.getText();
+    
+    try {
+        Connection conexao = conectarBanco();
+        
+        // Consulta SQL para buscar doenças com o nome que contém o texto pesquisado
+        String sql = "SELECT IDDOENCA, DOENCA_DESCRICAO FROM DOENCAS WHERE DOENCA_DESCRICAO LIKE ?";
+        PreparedStatement pstmt = conexao.prepareStatement(sql);
+        pstmt.setString(1, "%" + nomePesquisa + "%");
+        
+        ResultSet rs = pstmt.executeQuery();
+        
+        // Configura o modelo da tabela
+        DefaultTableModel model = (DefaultTableModel) TblDoencas.getModel();
+        model.setColumnIdentifiers(new Object[]{"ID", "Descrição"});
+        model.setRowCount(0);
+        
+        // Adiciona as linhas na tabela
+        while (rs.next()) {
+            int id = rs.getInt("IDDOENCA");
+            String descricao = rs.getString("DOENCA_DESCRICAO");
+            model.addRow(new Object[]{id, descricao});
+        }
+        
+        // Fecha recursos
+        rs.close();
+        pstmt.close();
+        conexao.close();
+        
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Erro ao buscar doenças: " + ex.getMessage());
+    }
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        try {
+        // Cria um JPanel para conter a mensagem e os botões
+        JPanel panel = new JPanel();
+
+        // Adiciona uma mensagem ao JPanel
+        JLabel label = new JLabel("Tem certeza que deseja excluir esta doença?");
+        panel.add(label);
+
+        // Define os botões personalizados
+        String[] options = {"Sim", "Não"};
+
+        // Exibe a caixa de diálogo de confirmação com botões personalizados
+        int confirmacao = JOptionPane.showOptionDialog(this, panel, "Confirmação de Exclusão", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+
+        // Se o usuário confirmar a exclusão (clicar em "Sim")
+        if (confirmacao == JOptionPane.YES_OPTION) {
+            // Conectar ao banco de dados
+            Connection conexao = conectarBanco();
+
+            // Criar uma instrução SQL para excluir o registro da tabela DOENCAS
+            String sql = "DELETE FROM DOENCAS WHERE IDDOENCA = ?";
+
+            // Preparar a instrução
+            PreparedStatement pstmt = conexao.prepareStatement(sql);
+
+            // Obter o ID da doença a ser excluída
+            int idDoenca = Integer.parseInt(txtPesquisaNome.getText());
+
+            // Definir o valor do parâmetro da instrução SQL
+            pstmt.setInt(1, idDoenca);
+
+            // Executar a instrução SQL
+            int linhasAfetadas = pstmt.executeUpdate();
+
+            // Verificar se a exclusão foi bem-sucedida
+            if (linhasAfetadas > 0) {
+                JOptionPane.showMessageDialog(this, "Doença excluída com sucesso!");
+
+                
+               
+            } else {
+                JOptionPane.showMessageDialog(this, "Nenhuma doença foi excluída. Verifique o ID informado.");
+            }
+
+            // Fechar a conexão e liberar os recursos
+            pstmt.close();
+            conexao.close();
+            
+            // Atualizar a tabela de doenças após a exclusão
+            exibirDoencas();
+        }
+
+    } catch (SQLException ex) {
+        // Lidar com erros de banco de dados
+        JOptionPane.showMessageDialog(this, "Erro ao excluir doença: " + ex.getMessage());
+    } catch (NumberFormatException ex) {
+        // Lidar com erro de formato do ID
+        JOptionPane.showMessageDialog(this, "ID da doença deve ser um número.");
+    }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    
+          private Connection conectarBanco() throws SQLException {
+        String url = "jdbc:mysql://localhost:3306/consultaSintomas";
+        String usuario = "root";
+        String senha = "root";
+        return DriverManager.getConnection(url, usuario, senha);
+      }
+    
+    
+    
+    private void exibirDoencas() throws SQLException {
+    try {
+        Connection conexao = conectarBanco();
+
+        String sql = "SELECT IDDOENCA, DOENCA_DESCRICAO FROM DOENCAS";
+
+        try (PreparedStatement pstmt = conexao.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+
+            DefaultTableModel model = (DefaultTableModel) TblDoencas.getModel();
+            model.setRowCount(0);
+
+            while (rs.next()) {
+                int id = rs.getInt("IDDOENCA");
+                String descricao = rs.getString("DOENCA_DESCRICAO");
+
+                model.addRow(new Object[]{id, descricao});
+            }
+
+        }
+    } catch (SQLException ex) {
+        // Lidar com erros de banco de dados
+        JOptionPane.showMessageDialog(this, "Erro ao buscar registros: " + ex.getMessage());
+    }
+}
+
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -145,13 +358,16 @@ public class PesquisaDeDoenca extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JTable TblDoencas;
+    private javax.swing.JButton btnAlterar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnPesquisar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtPesquisaNome;
     // End of variables declaration//GEN-END:variables
 }

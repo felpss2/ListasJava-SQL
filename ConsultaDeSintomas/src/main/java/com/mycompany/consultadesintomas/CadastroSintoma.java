@@ -4,6 +4,12 @@
  */
 package com.mycompany.consultadesintomas;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author 05136425016
@@ -32,10 +38,10 @@ public class CadastroSintoma extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        txtSintoma = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnCadastrar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
@@ -80,46 +86,58 @@ public class CadastroSintoma extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtSintoma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtSintomaActionPerformed(evt);
             }
         });
 
         jLabel3.setText("Descrição do sintoma");
 
-        jButton1.setText("Salvar");
+        btnCadastrar.setText("Cadastrar");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Cancelar");
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(94, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel4Layout.createSequentialGroup()
-                            .addComponent(jButton1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2))
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(66, 66, 66))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addComponent(btnCadastrar)
+                        .addGap(44, 44, 44)
+                        .addComponent(btnCancelar))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(73, 73, 73)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(txtSintoma, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addGap(69, 69, 69)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(89, 89, 89)
+                .addComponent(txtSintoma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(118, Short.MAX_VALUE))
+                    .addComponent(btnCadastrar)
+                    .addComponent(btnCancelar))
+                .addContainerGap(129, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -136,9 +154,53 @@ public class CadastroSintoma extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtSintomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSintomaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtSintomaActionPerformed
+
+      private Connection conectarBanco() throws SQLException {
+        String url = "jdbc:mysql://localhost:3306/consultaSintomas";
+        String usuario = "root";
+        String senha = "root";
+        return DriverManager.getConnection(url, usuario, senha);
+      }
+      
+private void cadastrarSintoma(String descricaoSintoma) {
+    try {
+        Connection conexao = conectarBanco();
+
+        // Inserir o sintoma na tabela SINTOMAS
+        String insertSintomaSQL = "INSERT INTO SINTOMAS (SINTOMA_DESCRICAO) VALUES (?)";
+        PreparedStatement pstmtSintoma = conexao.prepareStatement(insertSintomaSQL);
+
+        pstmtSintoma.setString(1, descricaoSintoma);
+
+        int rowsAffected = pstmtSintoma.executeUpdate();
+
+        if (rowsAffected > 0) {
+            JOptionPane.showMessageDialog(null, "Sintoma cadastrado com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhum sintoma foi cadastrado.");
+        }
+
+        pstmtSintoma.close();
+        conexao.close();
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Erro ao cadastrar sintoma: " + e.getMessage());
+    }
+}
+
+    
+    
+    
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+         String descricaoSintoma = txtSintoma.getText();
+        cadastrarSintoma(descricaoSintoma);
+    }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+       dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -176,8 +238,8 @@ public class CadastroSintoma extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -185,6 +247,6 @@ public class CadastroSintoma extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtSintoma;
     // End of variables declaration//GEN-END:variables
 }
