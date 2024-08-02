@@ -199,7 +199,8 @@ private void cadastrarSintoma(String descricaoSintoma) {
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-       dispose();
+        this.dispose();
+        new Main().setVisible(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**

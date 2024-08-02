@@ -115,11 +115,16 @@ public class CadastroDoenca extends javax.swing.JFrame {
  
         String descricaoDoenca = txtDoenca.getText();
         cadastrarDoenca(descricaoDoenca);
+        txtDoenca.setText("");
+
+        
         
     }//GEN-LAST:event_BtnCadastrar1ActionPerformed
 
     private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
-         dispose();
+        
+        this.dispose();
+        new Main().setVisible(true);
     }//GEN-LAST:event_BtnCancelarActionPerformed
 
     

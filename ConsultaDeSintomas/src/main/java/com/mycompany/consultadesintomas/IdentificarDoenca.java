@@ -4,6 +4,14 @@
  */
 package com.mycompany.consultadesintomas;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author felyp
@@ -45,15 +53,14 @@ public class IdentificarDoenca extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
-        jTextField2 = new javax.swing.JTextField();
+        TblSintomas = new javax.swing.JTable();
+        txtSintoma = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
-        jToggleButton2 = new javax.swing.JToggleButton();
-        jButton5 = new javax.swing.JButton();
+        btnIdentificarDoenca = new javax.swing.JToggleButton();
         jButton6 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable5 = new javax.swing.JTable();
+        TblResultados = new javax.swing.JTable();
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -169,20 +176,25 @@ public class IdentificarDoenca extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel3.setText("Digite a Sintoma");
 
         jLabel4.setText("Digite a Sintoma");
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        TblSintomas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Sintoma"
+                "Codigo", "Sintoma"
             }
         ));
-        jScrollPane4.setViewportView(jTable4);
+        jScrollPane4.setViewportView(TblSintomas);
 
         jButton4.setText("Pesquisar");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -191,20 +203,23 @@ public class IdentificarDoenca extends javax.swing.JFrame {
             }
         });
 
-        jToggleButton2.setText("Identificar Doença");
-
-        jButton5.setText("Adicionar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnIdentificarDoenca.setText("Identificar Doença");
+        btnIdentificarDoenca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnIdentificarDoencaActionPerformed(evt);
             }
         });
 
         jButton6.setText("Cancelar");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Possíveis Doenças");
 
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+        TblResultados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -212,15 +227,14 @@ public class IdentificarDoenca extends javax.swing.JFrame {
                 "Doença", "Sintomas"
             }
         ));
-        jScrollPane5.setViewportView(jTable5);
+        jScrollPane5.setViewportView(TblResultados);
 
         jDesktopPane1.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jScrollPane4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jTextField2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(txtSintoma, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jButton4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jToggleButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jButton5, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(btnIdentificarDoenca, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jButton6, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jScrollPane5, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -232,27 +246,27 @@ public class IdentificarDoenca extends javax.swing.JFrame {
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                .addGap(13, 13, 13)
-                                .addComponent(jToggleButton2)
-                                .addGap(31, 31, 31)
-                                .addComponent(jButton5)
-                                .addGap(33, 33, 33)
-                                .addComponent(jButton6))
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(jLabel5)))
-                        .addGap(0, 28, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addComponent(txtSintoma, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(17, 17, 17))
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(btnIdentificarDoenca)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton6)
+                        .addGap(59, 59, 59))))
             .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jDesktopPane1Layout.createSequentialGroup()
                     .addGap(156, 156, 156)
@@ -266,20 +280,19 @@ public class IdentificarDoenca extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSintoma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jToggleButton2)
-                    .addComponent(jButton5)
+                    .addComponent(btnIdentificarDoenca)
                     .addComponent(jButton6))
-                .addGap(41, 41, 41)
+                .addGap(47, 47, 47)
                 .addComponent(jLabel5)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
             .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jDesktopPane1Layout.createSequentialGroup()
                     .addGap(295, 295, 295)
@@ -302,15 +315,110 @@ public class IdentificarDoenca extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-       adicionarSintomas adicionar = new adicionarSintomas();
-        jDesktopPane1.add(adicionar);
-        adicionar.setVisible(true);       
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+       exibirSintomasVinculados();
+    }//GEN-LAST:event_formWindowOpened
 
+    private void btnIdentificarDoencaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIdentificarDoencaActionPerformed
+        String sintomaDigitado = txtSintoma.getText().trim();
+
+    if (sintomaDigitado.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Digite um sintoma.");
+        return;
+    }
+
+    try {
+        Connection conexao = conectarBanco();
+
+        // SQL para buscar doenças vinculadas ao sintoma digitado
+        String sql = "SELECT DOENCAS.IDDOENCA, DOENCAS.DOENCA_DESCRICAO, SINTOMAS.SINTOMA_DESCRICAO " +
+                     "FROM DOENCASSINTOMAS " +
+                     "JOIN DOENCAS ON DOENCASSINTOMAS.IDDOENCA = DOENCAS.IDDOENCA " +
+                     "JOIN SINTOMAS ON DOENCASSINTOMAS.IDSINTOMA = SINTOMAS.IDSINTOMA " +
+                     "WHERE SINTOMAS.SINTOMA_DESCRICAO LIKE ?";
+
+        PreparedStatement pstmt = conexao.prepareStatement(sql);
+        pstmt.setString(1, "%" + sintomaDigitado + "%");
+        ResultSet rs = pstmt.executeQuery();
+
+        // Obtemos o modelo da tabela onde os resultados serão exibidos
+        DefaultTableModel model = (DefaultTableModel) TblResultados.getModel();
+        model.setRowCount(0); // Limpa as linhas existentes na tabela
+
+        // Preenche a tabela com os dados retornados do ResultSet
+        while (rs.next()) {
+            int idDoenca = rs.getInt("IDDOENCA");
+            String descricaoDoenca = rs.getString("DOENCA_DESCRICAO");
+            String descricaoSintoma = rs.getString("SINTOMA_DESCRICAO");
+
+            model.addRow(new Object[]{descricaoSintoma, descricaoDoenca});
+        }
+
+        // Fechar a conexão
+        rs.close();
+        pstmt.close();
+        conexao.close();
+    } catch (SQLException ex) {
+        // Lidar com erros de banco de dados
+        JOptionPane.showMessageDialog(this, "Erro ao identificar doença: " + ex.getMessage());
+    }
+    }//GEN-LAST:event_btnIdentificarDoencaActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        this.dispose();
+        new Main().setVisible(true);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    
+    
+    
+    
+    private void exibirSintomasVinculados() {
+    try {
+        Connection conexao = conectarBanco();
+
+        // SQL para buscar os sintomas vinculados a alguma doença
+        String sql = "SELECT SINTOMAS.IDSINTOMA, SINTOMAS.SINTOMA_DESCRICAO " +
+                     "FROM DOENCASSINTOMAS " +
+                     "JOIN SINTOMAS ON DOENCASSINTOMAS.IDSINTOMA = SINTOMAS.IDSINTOMA";
+
+        PreparedStatement pstmt = conexao.prepareStatement(sql);
+        ResultSet rs = pstmt.executeQuery();
+
+        // Obtemos o modelo da tabela onde os sintomas serão exibidos
+        DefaultTableModel model = (DefaultTableModel) TblSintomas.getModel();
+        model.setRowCount(0); // Limpa as linhas existentes na tabela
+
+        // Preenche a tabela com os dados retornados do ResultSet
+        while (rs.next()) {
+            int id = rs.getInt("IDSINTOMA");
+            String descricao = rs.getString("SINTOMA_DESCRICAO");
+
+            model.addRow(new Object[]{id, descricao});
+        }
+
+        // Fechar a conexão
+        rs.close();
+        pstmt.close();
+        conexao.close();
+    } catch (SQLException ex) {
+        // Lidar com erros de banco de dados
+        JOptionPane.showMessageDialog(this, "Erro ao exibir sintomas: " + ex.getMessage());
+    }
+}
+ 
+    
+    
+     private Connection conectarBanco() throws SQLException {
+        String url = "jdbc:mysql://localhost:3306/consultaSintomas";
+        String usuario = "root";
+        String senha = "root";
+        return DriverManager.getConnection(url, usuario, senha);
+      }
+    
     /**
      * @param args the command line arguments
      */
@@ -347,11 +455,13 @@ public class IdentificarDoenca extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TblResultados;
+    private javax.swing.JTable TblSintomas;
+    private javax.swing.JToggleButton btnIdentificarDoenca;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
@@ -369,11 +479,8 @@ public class IdentificarDoenca extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
-    private javax.swing.JTable jTable5;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JToggleButton jToggleButton2;
+    private javax.swing.JTextField txtSintoma;
     // End of variables declaration//GEN-END:variables
 }

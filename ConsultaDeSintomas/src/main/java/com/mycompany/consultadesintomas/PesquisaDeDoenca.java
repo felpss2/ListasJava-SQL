@@ -281,7 +281,8 @@ public class PesquisaDeDoenca extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        dispose();
+         this.dispose();
+         new Main().setVisible(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     

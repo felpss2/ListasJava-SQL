@@ -345,7 +345,8 @@ public class adicionarSintomas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-      dispose();
+       this.dispose();
+       new VincularSintomas().setVisible(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
 
