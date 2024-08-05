@@ -196,6 +196,7 @@ private void cadastrarSintoma(String descricaoSintoma) {
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
          String descricaoSintoma = txtSintoma.getText();
         cadastrarSintoma(descricaoSintoma);
+        txtSintoma.setText("");
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

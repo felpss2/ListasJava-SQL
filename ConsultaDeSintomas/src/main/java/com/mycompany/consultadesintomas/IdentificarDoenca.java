@@ -262,7 +262,7 @@ public class IdentificarDoenca extends javax.swing.JFrame {
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(17, 17, 17))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
+                        .addGap(64, 64, 64)
                         .addComponent(btnIdentificarDoenca)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton6)
@@ -279,9 +279,9 @@ public class IdentificarDoenca extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSintoma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4))
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtSintoma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -292,7 +292,7 @@ public class IdentificarDoenca extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
             .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jDesktopPane1Layout.createSequentialGroup()
                     .addGap(295, 295, 295)
@@ -315,7 +315,49 @@ public class IdentificarDoenca extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    String nomePesquisa = txtSintoma.getText().trim();
+    
+    if (nomePesquisa.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Digite um nome para pesquisa.");
+        return;
+    }
+
+    try {
+        Connection conexao = conectarBanco();
         
+        // Consulta SQL para buscar sintomas com o nome que contém o texto pesquisado na tabela DOENCASSINTOMAS
+        String sql = "SELECT SINTOMAS.IDSINTOMA, SINTOMAS.SINTOMA_DESCRICAO, DOENCAS.DOENCA_DESCRICAO " +
+                     "FROM DOENCASSINTOMAS " +
+                     "JOIN SINTOMAS ON DOENCASSINTOMAS.IDSINTOMA = SINTOMAS.IDSINTOMA " +
+                     "JOIN DOENCAS ON DOENCASSINTOMAS.IDDOENCA = DOENCAS.IDDOENCA " +
+                     "WHERE SINTOMAS.SINTOMA_DESCRICAO LIKE ?";
+        PreparedStatement pstmt = conexao.prepareStatement(sql);
+        pstmt.setString(1, "%" + nomePesquisa + "%");
+        
+        ResultSet rs = pstmt.executeQuery();
+        
+        // Configura o modelo da tabela
+        DefaultTableModel model = (DefaultTableModel) TblSintomas.getModel();
+        model.setColumnIdentifiers(new Object[]{"ID", "Descrição do Sintoma", "Descrição da Doença"});
+        model.setRowCount(0);
+        
+        // Adiciona as linhas na tabela
+        while (rs.next()) {
+            int id = rs.getInt("IDSINTOMA");
+            String descricaoSintoma = rs.getString("SINTOMA_DESCRICAO");
+            String descricaoDoenca = rs.getString("DOENCA_DESCRICAO");
+            model.addRow(new Object[]{id, descricaoSintoma, descricaoDoenca});
+        }
+        
+        // Fecha recursos
+        rs.close();
+        pstmt.close();
+        conexao.close();
+        txtSintoma.setText("");
+        
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Erro ao buscar sintomas: " + ex.getMessage());
+    }        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened

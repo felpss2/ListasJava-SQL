@@ -43,11 +43,10 @@ public class PesquisaDeSintomas extends javax.swing.JFrame {
         txtPesquisaNome = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         TblSintomas = new javax.swing.JTable();
-        btnAlterar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnPesquisar = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        txtExcluir = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
@@ -69,8 +68,6 @@ public class PesquisaDeSintomas extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(TblSintomas);
-
-        btnAlterar.setText("Alterar");
 
         btnExcluir.setText("Excluir");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -104,11 +101,6 @@ public class PesquisaDeSintomas extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(125, 125, 125)
-                        .addComponent(btnAlterar)
-                        .addGap(64, 64, 64)
-                        .addComponent(btnCancelar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -118,7 +110,7 @@ public class PesquisaDeSintomas extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField1)
+                                    .addComponent(txtExcluir)
                                     .addComponent(txtPesquisaNome, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -126,7 +118,10 @@ public class PesquisaDeSintomas extends javax.swing.JFrame {
                                     .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(155, 155, 155)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(175, 175, 175)
+                        .addComponent(btnCancelar)))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -144,15 +139,13 @@ public class PesquisaDeSintomas extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(2, 2, 2)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnExcluir))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAlterar)
-                    .addComponent(btnCancelar))
-                .addGap(31, 31, 31))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCancelar)
+                .addGap(37, 37, 37))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -223,6 +216,7 @@ public class PesquisaDeSintomas extends javax.swing.JFrame {
             // Fechar a conexão e liberar os recursos
             pstmt.close();
             conexao.close();
+            txtExcluir.setText("");
             
             // Atualizar a tabela de sintomas após a exclusão
             exibirSintomas();
@@ -267,6 +261,7 @@ public class PesquisaDeSintomas extends javax.swing.JFrame {
         rs.close();
         pstmt.close();
         conexao.close();
+         txtPesquisaNome.setText("");
         
     } catch (SQLException ex) {
         JOptionPane.showMessageDialog(this, "Erro ao buscar sintomas: " + ex.getMessage());
@@ -367,7 +362,6 @@ public class PesquisaDeSintomas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TblSintomas;
-    private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnPesquisar;
@@ -376,7 +370,7 @@ public class PesquisaDeSintomas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtExcluir;
     private javax.swing.JTextField txtPesquisaNome;
     // End of variables declaration//GEN-END:variables
 }

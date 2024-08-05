@@ -310,6 +310,7 @@ public class adicionarSintomas extends javax.swing.JInternalFrame {
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
                 String nomePesquisa = txtDescricaoSintoma.getText();
+                txtDescricaoDoenca.setText("");
     
     try {
         Connection conexao = conectarBanco();
